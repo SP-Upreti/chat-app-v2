@@ -1,5 +1,7 @@
+import { useAppContext } from "../../context/appcontext"
 
 export default function Users({ onClose }: { onClose: () => void }) {
+    const { toggleSidebar, setToggleSidebar } = useAppContext()
     return (
         <div className="fixed inset-0 h-screen w-screen bg-black/50 flex z-[50] justify-center items-center py-20 ">
             <div className="bg-white w-full mx-4 md:w-[50%] min-h-[50dvh] p-4 md:p-8 rounded-sm max-h-[90dvh] overflow-auto">
@@ -16,7 +18,7 @@ export default function Users({ onClose }: { onClose: () => void }) {
                         [...Array(10)].map(
                             (key) => {
                                 return (
-                                    <li key={key} className="flex justify-between gap-5 sm:gap-10 items-center border-b py-4 hover:bg-slate-100 cursor-pointer px-2">
+                                    <li onClick={() => { setToggleSidebar(!toggleSidebar) }} key={key} className="flex justify-between gap-5 sm:gap-10 items-center border-b py-4 hover:bg-slate-100 cursor-pointer px-2">
                                         <div className="flex gap-4 items-center">
                                             <div className="h-10 w-10 md:h-16 md:w-16 bg-slate-100 overflow-hidden rounded-full flex justify-center items-center">
                                                 <img src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg" width={'200px'} className="" alt="user avatar" />
