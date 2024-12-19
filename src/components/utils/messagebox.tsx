@@ -6,8 +6,6 @@ export default function Messagebox() {
     // Ref to the message container
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-
-
     return (
         <div className="h-[90dvh]">
             <div className="h-[78dvh] md:h-[80dvh] p-4 px-8 box-border overflow-auto">

@@ -10,7 +10,7 @@ export default function SendMessage() {
   };
 
   return (
-    <div className="h-[10dvh] box-border flex gap-2 sm:gap-8 items-center p-4 sm:px-8 border-t">
+    <div className="h-[10dvh] box-border flex gap-2 sm:gap-8 items-center p-4 sm:px-8 ">
       <textarea
         placeholder="Type here..."
         rows={1}
@@ -21,8 +21,8 @@ export default function SendMessage() {
       />
       <button className="group" onClick={handlePlayAudio}>
         <svg
-          width=""
-          height=""
+          width="24"
+          height="24"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -41,8 +41,8 @@ export default function SendMessage() {
       </button>
       <button >
         <svg
-          width=""
-          height=""
+          width="24"
+          height="24"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
