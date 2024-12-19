@@ -18,7 +18,7 @@ export default function Users({ onClose }: { onClose: () => void }) {
                         [...Array(10)].map(
                             (key) => {
                                 return (
-                                    <li onClick={() => { setToggleSidebar(!toggleSidebar) }} key={key} className="flex justify-between gap-5 sm:gap-10 items-center border-b py-4 hover:bg-slate-100 cursor-pointer px-2">
+                                    <li onClick={() => { setToggleSidebar(!toggleSidebar); onClose }} key={key} className="flex justify-between gap-5 sm:gap-10 items-center border-b py-4 hover:bg-slate-100 cursor-pointer px-2">
                                         <div className="flex gap-4 items-center">
                                             <div className="h-10 w-10 md:h-16 md:w-16 bg-slate-100 overflow-hidden rounded-full flex justify-center items-center">
                                                 <img src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg" width={'200px'} className="" alt="user avatar" />
