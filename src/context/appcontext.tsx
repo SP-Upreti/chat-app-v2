@@ -4,6 +4,10 @@ import React, { createContext, useState, ReactNode, useContext } from "react";
 interface AppContextType {
     toggleSidebar: boolean;
     setToggleSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+    loggedIn: {};
+    selectedUser: [];
+    setSelectedUser: React.Dispatch<React.SetStateAction<[]>>
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -14,9 +18,11 @@ interface AppContextProviderProps {
 
 const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
     const [toggleSidebar, setToggleSidebar] = useState<boolean>(true);
+    const [loggedIn, setLoggedIn] = useState<{}>(localStorage.getItem('userAuthenticated') || false);
+    const [selectedUser, setSelectedUser] = useState<[]>([]);
 
     return (
-        <AppContext.Provider value={{ toggleSidebar, setToggleSidebar }}>
+        <AppContext.Provider value={{ toggleSidebar, setToggleSidebar, loggedIn, setLoggedIn, selectedUser, setSelectedUser }}>
             {children}
         </AppContext.Provider>
     );
