@@ -15,7 +15,6 @@ function App() {
           <Route path='/' element={loggedIn ? <Home /> : <Navigate to={'/auth'} />} />
         </Routes>
       </BrowserRouter>
-
     </>
   )
 }
