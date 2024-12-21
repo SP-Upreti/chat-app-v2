@@ -36,8 +36,8 @@ export default function useLogin() {
                 return;
             }
             toast.error(res.message);
-        } catch (err) {
-            toast.error("Login Error");
+        } catch (err: any) {
+            toast.error(err.message);
         } finally {
             setLoading(false); // Ensure loading is reset
         }
