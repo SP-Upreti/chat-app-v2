@@ -8,6 +8,9 @@ export default function useLogin() {
     const { setLoggedIn } = useAppContext();
     const navigate = useNavigate();
 
+    // Utility function to validate email format
+    const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
+
     async function userLogin({ email, password }: { email: string, password: string }) {
         try {
             setLoading(true);
@@ -18,6 +21,11 @@ export default function useLogin() {
                 return;
             }
 
+            if (!isValidEmail(email)) {
+                toast.error("Invalid email format");
+                return;
+            }
+
             // API Request
             const req = await fetch("https://chat-server-v2.vercel.app/auth/login", {
                 method: "POST",
@@ -25,6 +33,12 @@ export default function useLogin() {
                 body: JSON.stringify({ email, password }),
                 credentials: "include", // Include this only if required
             });
+
+            if (!req.ok) {
+                // If the response status is not OK, throw an error
+                throw new Error(`HTTP error! Status: ${req.status}`);
+            }
+
             const res = await req.json();
 
             // Handle response
@@ -35,9 +49,14 @@ export default function useLogin() {
                 navigate("/");
                 return;
             }
-            toast.error(res.message);
-        } catch (err: any) {
-            toast.error(err.message);
+
+            toast.error(res.message || "Login failed");
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                toast.error(`Error: ${err.message}`);
+            } else {
+                toast.error("An unknown error occurred");
+            }
         } finally {
             setLoading(false); // Ensure loading is reset
         }
