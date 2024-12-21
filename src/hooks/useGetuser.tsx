@@ -1,31 +1,29 @@
 import { useState } from "react";
-import { useAppContext } from "../context/appcontext";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
-export default function useLogin() {
+export default function useGetuser() {
     const [loading, setLoading] = useState(false);
-    const { setLoggedIn } = useAppContext();
-    const navigate = useNavigate();
+    const [users, setUSers] = useState([]);
+    // const { setLoggedIn, loggedIn } = useAppContext();
 
-    async function userLogin({ email, password }: { email: String, password: String }) {
+    async function getUsers({ email, password }: { email: String, password: String }) {
         try {
             setLoading(true);
             if (!email || !password) {
                 toast.error("Fill both email and password field")
             }
-            const req = await fetch("https://chat-server-v2.vercel.app/auth/login", {
-                method: "POST",
+            const req = await fetch("https://chat-server-v2.vercel.app/user", {
+                method: "GET",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
                 credentials: "include"
             });
             const res = await req.json();
             if (res.success) {
-                setLoggedIn(true);
-                toast.success("Logged in");
-                localStorage.setItem('userAuthenticated', res._user)
-                navigate("/")
+                // setLoggedIn(true);
+                // toast.success("Logged in");
+                setUSers(res)
+                console.log(res)
+                // localStorage.setItem('userAuthenticated', res._user)
                 return
             }
             toast.error(res.message)
@@ -33,11 +31,12 @@ export default function useLogin() {
         }
         catch (err) {
             toast.error("Use Login Error")
+            console.log(err)
             setLoading(false)
         }
         finally {
             setLoading(false)
         }
     }
-    return { loading, userLogin }
+    return { loading, getUsers, users }
 }
