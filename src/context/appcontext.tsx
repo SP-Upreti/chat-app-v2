@@ -18,7 +18,7 @@ interface AppContextProviderProps {
 
 const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => {
     const [toggleSidebar, setToggleSidebar] = useState<boolean>(true);
-    const [loggedIn, setLoggedIn] = useState<{}>(localStorage.getItem('userAuthenticated') || true);
+    const [loggedIn, setLoggedIn] = useState<{}>(localStorage.getItem('userAuthenticated') || false);
     const [selectedUser, setSelectedUser] = useState<[]>([]);
 
     return (
