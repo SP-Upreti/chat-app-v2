@@ -29,7 +29,12 @@ export default function useLogin() {
             // API Request
             const req = await fetch("https://chat-server-v2.vercel.app/auth/login", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Headers": "Content-Type",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                },
                 body: JSON.stringify({ email, password }),
                 credentials: "include", // Include this only if required
             });
