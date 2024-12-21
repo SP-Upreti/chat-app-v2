@@ -8,12 +8,17 @@ export default function useLogin() {
     const { setLoggedIn } = useAppContext();
     const navigate = useNavigate();
 
-    async function userLogin({ email, password }: { email: String, password: String }) {
+    async function userLogin({ email, password }: { email: string, password: string }) {
         try {
             setLoading(true);
+
+            // Input validation
             if (!email || !password) {
-                toast.error("Fill both email and password field")
+                toast.error("Fill both email and password fields");
+                return;
             }
+
+            // API Request
             const req = await fetch("https://chat-server-v2.vercel.app/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -21,23 +26,22 @@ export default function useLogin() {
                 credentials: "include"
             });
             const res = await req.json();
+
+            // Handle response
             if (res.success) {
                 setLoggedIn(true);
                 toast.success("Logged in");
-                localStorage.setItem('userAuthenticated', res._user)
-                navigate("/")
-                return
+                localStorage.setItem('userAuthenticated', JSON.stringify(res._user));
+                navigate("/");
+                return;
             }
-            toast.error(res.message)
-
-        }
-        catch (err) {
-            toast.error("Use Login Error")
-            setLoading(false)
-        }
-        finally {
-            setLoading(false)
+            toast.error(res.message);
+        } catch (err) {
+            toast.error("Login Error");
+        } finally {
+            setLoading(false); // Ensure loading is reset
         }
     }
-    return { loading, userLogin }
+
+    return { loading, userLogin };
 }
