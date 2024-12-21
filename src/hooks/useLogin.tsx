@@ -14,7 +14,7 @@ export default function useLogin() {
             if (!email || !password) {
                 toast.error("Fill both email and password field")
             }
-            const req = await fetch("https://chat-server-v2.vercel.app/auth/login", {
+            const req = await fetch("http://localhost:8080/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
